@@ -3,9 +3,9 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3 md:hidden">
         <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white">
-          <Receipt class="w-5 h-5" />
+          <Boxes class="w-5 h-5" />
         </div>
-        <span class="font-bold text-lg text-gray-900 dark:text-white">Reembolso<span class="text-primary-600">Pro</span></span>
+        <span class="font-bold text-lg text-gray-900 dark:text-white">{{ appName }}</span>
       </div>
       
       <div class="hidden md:block">
@@ -38,10 +38,12 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { Receipt, Menu, ChevronLeft } from 'lucide-vue-next';
+import { Boxes, Menu, ChevronLeft } from 'lucide-vue-next';
 import { useAuthStore } from '@/stores/auth';
 import { useUIStore } from '@/stores/ui';
+import { env } from '@/config/env';
 
+const appName = env.appName;
 const route = useRoute();
 const authStore = useAuthStore();
 const uiStore = useUIStore();

@@ -16,7 +16,7 @@
           {{ uiStore.loadingMessage || 'Carregando...' }}
         </p>
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 uppercase tracking-widest font-bold">
-          Reembolso Pro
+          {{ appName }}
         </p>
       </div>
     </div>
@@ -25,8 +25,10 @@
 
 <script setup>
 import { useUIStore } from '@/stores/ui';
+import { env } from '@/config/env';
 
 const uiStore = useUIStore();
+const appName = env.appName;
 </script>
 
 <style scoped>

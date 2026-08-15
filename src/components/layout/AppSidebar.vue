@@ -9,12 +9,12 @@
     <div class="p-4 flex items-center" :class="[isExpanded ? 'justify-between' : 'justify-center']">
       <div v-if="isExpanded" class="flex items-center gap-4 text-primary-600 overflow-hidden whitespace-nowrap">
         <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shrink-0">
-          <Receipt class="w-6 h-6" />
+          <Boxes class="w-6 h-6" />
         </div>
-        <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white">Reembolso<span class="text-primary-600">Pro</span></span>
+        <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white">{{ appName }}</span>
       </div>
       <div v-else class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shrink-0">
-        <Receipt class="w-6 h-6" />
+        <Boxes class="w-6 h-6" />
       </div>
     </div>
 
@@ -126,25 +126,26 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { 
-  LayoutDashboard, 
-  PlusCircle, 
-  History, 
-  Users, 
-  Settings, 
+import {
+  LayoutDashboard,
+  ListTodo,
+  Users,
+  Settings,
   LogOut,
-  Receipt,
-  Tags,
+  Boxes,
   ChevronDown,
-  Briefcase
 } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
-import { useAuth } from '@/composables/useAuth';
+import { useAuth } from '@/features/auth/composables/useAuth';
+import { useAuthStore } from '@/stores/auth';
 import { useUIStore } from '@/stores/ui';
 import { usePermissions } from '@/composables/usePermissions';
+import { env } from '@/config/env';
 
+const appName = env.appName;
 const router = useRouter();
 const { logout } = useAuth();
+const authStore = useAuthStore();
 const uiStore = useUIStore();
 const { can } = usePermissions();
 
@@ -155,26 +156,12 @@ const openSubmenus = ref([]);
 const menuItems = computed(() => {
   const items = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard, show: true },
-    { 
-      name: 'Novo Reembolso', 
-      path: '/expenses/new', 
-      icon: PlusCircle, 
-      show: can('reembolso', 'insert') 
-    },
-    { name: 'Histórico', path: '/expenses', icon: History, show: can('reembolso', 'view') },
-    { 
-      name: 'Cadastros', 
-      icon: Briefcase,
-      show: can('admin', 'view'),
-      children: [
-        { name: 'Usuários', path: '/admin/users' },
-        { name: 'Categorias', path: '/admin/categories' },
-      ]
-    },
+    { name: 'Tarefas', path: '/tasks', icon: ListTodo, show: can('task', 'view') },
+    { name: 'Usuários', path: '/admin/users', icon: Users, show: authStore.isAdmin },
     { name: 'Perfil', path: '/profile', icon: Settings, show: true },
   ];
 
-  return items.filter(item => item.show);
+  return items.filter((item) => item.show);
 });
 
 const toggleSubmenu = (name) => {

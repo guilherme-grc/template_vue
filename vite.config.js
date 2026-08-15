@@ -18,5 +18,10 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       hmr: process.env.DISABLE_HMR !== 'true',
     },
+    test: {
+      environment: 'happy-dom',
+      setupFiles: ['./tests/setup.js'],
+      globals: true,
+    },
   };
 });

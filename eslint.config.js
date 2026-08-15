@@ -30,10 +30,16 @@ export default [
         defineEmits: 'readonly',
         defineExpose: 'readonly',
         withDefaults: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
       }
     },
     rules: {
-      'vue/multi-word-component-names': 'off',
       'no-unused-vars': 'warn',
       'no-undef': 'error'
     }

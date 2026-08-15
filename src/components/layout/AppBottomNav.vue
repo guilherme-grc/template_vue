@@ -20,17 +20,15 @@
 </template>
 
 <script setup>
-import { 
-  LayoutDashboard, 
-  PlusCircle, 
-  History, 
-  User 
+import {
+  LayoutDashboard,
+  ListTodo,
+  User,
 } from 'lucide-vue-next';
 
 const navItems = [
   { name: 'Home', path: '/', icon: LayoutDashboard },
-  { name: 'Novo', path: '/expenses/new', icon: PlusCircle },
-  { name: 'Histórico', path: '/expenses', icon: History },
+  { name: 'Tarefas', path: '/tasks', icon: ListTodo },
   { name: 'Perfil', path: '/profile', icon: User },
 ];
 </script>
